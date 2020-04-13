@@ -15,6 +15,8 @@ void manualMatrix ( int matrix[limit][limit], int row, int column );
 void randomMatrix ( int matrix[limit][limit], int row, int column );
 void searchMax ( int matrix[limit][limit], int row, int column );
 void searchMin ( int matrix[limit][limit], int row, int column );
+void changeRows ( int matrix[limit][limit], int row, int column );
+void changeColumns ( int matrix[limit][limit], int row, int column );
 
 int main() {
 	
@@ -23,13 +25,14 @@ int main() {
 	int row, column, value1, value2;
 	int matrix[limit][limit];
 	char key1, key2;
+	string key3;
 	
 	do {
 		
 		cout << "\t\t Обработка данных в матрице \n\n" <<endl;
 	    cout << "1.Найти наибольшее и наименьшее значения в матрице, и их позиции." << endl;
 		cout << "2.Поменять местами строки или колонки." << endl;
-		cout << "3.De ad?ugat o linie ?i / sau coloan?, de completat cu caracteristica conform variantei." << endl;
+		cout << "3.Добавить строку и/или колонку, de completat cu caracteristica conform variantei." << endl;
 		cout << "4.De aranjat o matrice dup? linia sau coloana ad?ugat?." << endl;
 		cout << "5.De generat o matrice conform variantei.\n" << endl;
 	    cout << "\t|1 2 3|" <<endl;
@@ -61,6 +64,7 @@ int main() {
 							cout << "Введите количество колонок = ";
 							cin >> column;
 							
+							cout << " Матрица: \n\n";
 							manualMatrix( matrix, row, column );
 							searchMax( matrix, row, column );
 							searchMin( matrix, row ,column );
@@ -78,6 +82,7 @@ int main() {
 							cout << "Введите количество колонок = ";
 							cin >> column;
 							
+							cout << " Матрица: \n\n";
 							randomMatrix( matrix, row, column );
 							searchMax( matrix, row, column );
 							searchMin( matrix, row ,column );
@@ -112,9 +117,15 @@ int main() {
 							cout << "Введите количество колонок = ";
 							cin >> column;
 							
+							cout << " Матрица: \n\n";
 							manualMatrix( matrix, row, column );
-							searchMax( matrix, row, column );
-							searchMin( matrix, row ,column );
+							cout << "Введите 'column' чтобы поменять местами столбецы, 'row' - строки : ";
+							cin >> key3;
+							if ( key3 == "row" ) {
+								changeRows( matrix, row, column );
+							} else if ( key3 == "column" ) {
+								changeColumns( matrix, row, column );
+							}
 							
 							cout << endl;
 							cout << "\t( 'Enter' - вернуться в меню )" << endl;
@@ -129,9 +140,15 @@ int main() {
 							cout << "Введите количество колонок = ";
 							cin >> column;
 							
+							cout << " Матрица: \n\n";
 							randomMatrix( matrix, row, column );
-							searchMax( matrix, row, column );
-							searchMin( matrix, row ,column );
+							cout << "Введите 'column' чтобы поменять местами столбецы, 'row' - строки : ";
+							cin >> key3;
+							if ( key3 == "row" ) {
+								changeRows( matrix, row, column );
+							} else if ( key3 == "column" ) {
+								changeColumns( matrix, row, column );
+							}
 							
 							cout << endl;
 							cout << "\t( 'Enter' - вернуться в меню )" << endl;
@@ -162,8 +179,6 @@ int main() {
 
 void showMatrix ( int matrix[limit][limit], int row, int column ) {
 	int i, j;
-	cout << endl;
-	cout << " Матрица: \n\n";
 	for ( i = 0; i < row; i++ ) {
 		for ( j =0; j < column; j++ ) {
 			cout << matrix[i][j] << " ";
@@ -237,6 +252,36 @@ void searchMin ( int matrix[limit][limit], int row, int column ) {
 	cout << endl;
 }
 
-void changeRows ( matrix[limit][limit], row, column ) {
-	
+void changeRows ( int matrix[limit][limit], int row, int column ) {
+	int j, tmp, value1, value2;
+	cout << endl;
+	cout << "Строки которые нужно поменять местами: ";
+	cin >> value1;
+	cout << " и ";
+	cin >> value2;
+	for ( j = 0; j < row; j++ ) {
+		tmp = matrix[value1 - 1][j];
+		matrix[value1 - 1][j] = matrix[value2 - 1][j];
+		matrix[value2 - 1][j] = tmp;
+	}
+	cout << endl;
+	cout << "Матрица после замены строк:\n\n";
+	showMatrix( matrix, row, column );
+}
+
+void changeColumns ( int matrix[limit][limit], int row, int column ) {
+	int i, tmp, value1, value2;
+	cout << endl;
+	cout << "Колонки которые нужно поменять местами: ";
+	cin >> value1;
+	cout << " и ";
+	cin >> value2;
+	for ( i = 0; i < column; i++ ) {
+		tmp = matrix[i][value1 - 1];
+		matrix[i][value1 - 1] = matrix[i][value2 - 1];
+		matrix[i][value2 - 1] = tmp;
+	}
+	cout << endl;
+	cout << "Матрица после замены столбцов:\n\n";
+	showMatrix( matrix, row, column );
 }
