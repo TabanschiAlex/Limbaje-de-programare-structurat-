@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <algorithm>
+#include <iomanip>
 
 #define limit 100
 
@@ -17,8 +18,9 @@ void searchMax ( int matrix[limit][limit], int row, int column );
 void searchMin ( int matrix[limit][limit], int row, int column );
 void changeRows ( int matrix[limit][limit], int row, int column );
 void changeColumns ( int matrix[limit][limit], int row, int column );
-void addRow ( int matrix[limit][limit], int row, int column );
-void addColumn ( int matrix[limit][limit], int row, int column );
+void addColumn ( int matrix[limit][limit], int row, int &column );
+void matrixSortColumn ( int matrix[limit][limit], int &row, int &column );
+void generateMatrix ( int matrix[limit][limit], int row, int column );
 
 int main() {
 	
@@ -34,9 +36,9 @@ int main() {
 		cout << "\t\t Обработка данных в матрице \n\n" <<endl;
 	    cout << "1.Найти наибольшее и наименьшее значения в матрице, и их позиции." << endl;
 		cout << "2.Поменять местами строки или колонки." << endl;
-		cout << "3.Добавить строку и/или колонку, посчитать среднее значение." << endl;
-		cout << "4.De aranjat o matrice dup? linia sau coloana ad?ugat?." << endl;
-		cout << "5.De generat o matrice conform variantei.\n" << endl;
+		cout << "3.Добавить колонку, которая высчитывает среднее значение." << endl;
+		cout << "4.Отсортировать матрицу по колонке." << endl;
+		cout << "5.Сгенерировать матрицу.\n" << endl;
 	    cout << "\t|1 2 3|" <<endl;
 	    cout << "\t|6 5 4|" <<endl;
 	    cout << "\t|7 8 9|\n" <<endl;
@@ -166,7 +168,7 @@ int main() {
         		do {
 	    			
 	    			system("CLS");
-	    			cout << "\t\t Найти наибольшее и наименьшее значения в матрице, и их позиции \n\n";
+	    			cout << "\t\t Добавить колонку, которая высчитывает среднее значение. \n\n";
             		cout << "1. Ввести матрицу вручную" << endl;
                 	cout << "2. Сгенерировать матрицу" << endl;
                 	cout << "0. Главное меню\n\n";
@@ -184,15 +186,7 @@ int main() {
 							
 							cout << " Матрица: \n\n";
 							manualMatrix( matrix, row, column );
-							cout << "Введите 'column' чтобы добавить столбцы, 'row' - строки, 'all' - столбцы и строки : ";
-							cin >> key3;
-							if ( key3 == "row" ) {
-								addRow( matrix, row, column );
-							} else if ( key3 == "column" ) {
-								addColumn( matrix, row, column );
-							} else if ( key3 == "all") {
-								
-							}
+							addColumn( matrix, row, column );
 							
 							cout << endl;
 							cout << "\t( 'Enter' - вернуться в меню )" << endl;
@@ -209,15 +203,7 @@ int main() {
 							
 							cout << " Матрица: \n\n";
 							randomMatrix( matrix, row, column );
-							cout << "Введите 'column' чтобы добавить столбцы, 'row' - строки, 'all' - столбцы и строки : ";
-							cin >> key3;
-							if ( key3 == "row" ) {
-								addRow( matrix, row, column );
-							} else if ( key3 == "column" ) {
-								addColumn( matrix, row, column );
-							} else if ( key3 == "all") {
-								
-							}
+							addColumn( matrix, row, column );
 							
 							cout << endl;
 							cout << "\t( 'Enter' - вернуться в меню )" << endl;
@@ -229,12 +215,69 @@ int main() {
         		
 	    		getch();
         		break;
+        		
         	case '4':
-	    		system("CLS");
+        		
+        		do {
+	    			
+	    			system("CLS");
+	    			cout << "\t\t Отсортировать матрицу по колонке \n\n";
+            		cout << "1. Ввести матрицу вручную" << endl;
+                	cout << "2. Сгенерировать матрицу" << endl;
+                	cout << "0. Главное меню\n\n";
+					key2 = getch();
+					
+					switch (key2) {
+						
+						case '1':
+							
+							system("CLS");
+							cout << "Введите количетсво строк = ";
+							cin >> row;
+							cout << "Введите количество колонок = ";
+							cin >> column;
+							
+							cout << " Матрица: \n\n";
+							manualMatrix( matrix, row, column );
+							addColumn( matrix, row, column );
+							matrixSortColumn( matrix, row, column );
+							
+							cout << endl;
+							cout << "\t( 'Enter' - вернуться в меню )" << endl;
+							getch();
+							break;
+							
+						case '2':
+							
+							system("CLS");
+							cout << "Введите количетсво строк = ";
+							cin >> row;
+							cout << "Введите количество колонок = ";
+							cin >> column;
+							
+							cout << " Матрица: \n\n";
+							randomMatrix( matrix, row, column );
+							addColumn( matrix, row, column );
+							matrixSortColumn( matrix, row, column );
+							
+							cout << endl;
+							cout << "\t( 'Enter' - вернуться в меню )" << endl;
+							getch();
+							break;
+					}
+					
+				} while ( key2 != 0 );
+				
 	    		getch();
         		break;
         	case '5':
 	    		system("CLS");
+	    		cout << "Введите количетсво строк = ";
+				cin >> row;
+				cout << "Введите количество колонок = ";
+				cin >> column;
+	    		
+	    		generateMatrix( matrix, row, column);
 	    		getch();
         		break;
 		}
@@ -247,7 +290,7 @@ void showMatrix ( int matrix[limit][limit], int row, int column ) {
 	int i, j;
 	for ( i = 0; i < row; i++ ) {
 		for ( j =0; j < column; j++ ) {
-			cout << matrix[i][j] << " ";
+			cout << setw(4) << matrix[i][j];
 		}
 		cout << endl;
 	}
@@ -282,7 +325,7 @@ void randomMatrix ( int matrix[limit][limit], int row, int column ) {
 	int i, j;
 	for ( i = 0; i < row; i++ ) {
 		for ( j =0; j < column; j++ ) {
-			matrix[i][j] = rand() % 8 + 3;
+			matrix[i][j] = rand() % 100;
 		}
 	}
 	showMatrix( matrix, row, column );
@@ -330,8 +373,7 @@ void changeRows ( int matrix[limit][limit], int row, int column ) {
 		matrix[value1 - 1][j] = matrix[value2 - 1][j];
 		matrix[value2 - 1][j] = tmp;
 	}
-	cout << endl;
-	cout << "Матрица после замены строк:\n\n";
+	cout << "\n\nМатрица после замены строк:\n\n" << endl;
 	showMatrix( matrix, row, column );
 }
 
@@ -347,12 +389,13 @@ void changeColumns ( int matrix[limit][limit], int row, int column ) {
 		matrix[i][value1 - 1] = matrix[i][value2 - 1];
 		matrix[i][value2 - 1] = tmp;
 	}
-	cout << endl;
-	cout << "Матрица после замены столбцов:\n\n";
+	cout << "\n\nМатрица после замены столбцов:\n\n" << endl;
 	showMatrix( matrix, row, column );
 }
 
-void addRow ( int matrix[limit][limit], int row, int column ) {
+	/*
+
+ void addRow ( int matrix[limit][limit], int row, int column ) {
 	int i, j, value, value1;
 	cout << "Введите сколько нужно добавить строк = ";
 	cin >> value1;
@@ -388,4 +431,62 @@ void addColumn ( int matrix[limit][limit], int row, int column ) {
 
 void addAll ( int matrix[limit][limit], int row, int column ) {
 	
+}
+
+	*/
+
+void addColumn ( int matrix[limit][limit], int row, int &column ) {
+	int num, i, j, tmp;
+	for ( i = 0; i < row; i++) {
+		num = 0;
+		for ( j = 0; j < column - 1; j++) {
+			if ( matrix[i][j] > matrix[i + 1][j]) {
+				tmp = matrix[i][j] - matrix[i + 1][j];
+			} else {
+				tmp = matrix[i + 1][j] - matrix[i][j];
+			}
+			if ( tmp < 50 ) {
+				num++;	
+			}	
+			matrix[i][column] = num;
+		}
+	}
+	column ++;
+	cout << "\n\nМатрица после добавления столбца:\n\n" << endl;
+	showMatrix( matrix, row, column );
+}
+
+void matrixSortColumn (int matrix[limit][limit], int &row, int &column ) {
+	int temp, k;
+	bool change;
+	k = 0;
+	do{
+		k ++;
+		change = 0;
+		for( int i = 0; i < row - k; i++){
+			if(matrix[i][column - 1] > matrix[i + 1][column - 1]){
+				for(int  j = 0; j < column; j ++){
+					temp = matrix[i][j];
+					matrix[i][j] = matrix[i+1][j];
+					matrix[i+1][j] = temp;
+				}
+				change = 1;
+			}
+		}
+	}while(change);
+	cout << "\n\nМатрица после сортировки по столбцам:\n\n" << endl;
+	showMatrix( matrix, row, column);
+	
+}
+
+void generateMatrix ( int matrix[limit][limit], int row, int column ) {
+	int value = 0;
+	for ( int i = 0; i < row; i++ ) {
+		for ( int j = 0; j < column; j++ ) {
+			value += 2;
+			matrix[i][j] = value;
+		}
+	}
+	cout << "\n\n\tМатрица:\n" << endl;
+	showMatrix( matrix, row, column );
 }
