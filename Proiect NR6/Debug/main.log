@@ -1,0 +1,12 @@
+﻿  Source.cpp
+C:\Users\Александр\Desktop\limDePrgmStr\main\main\Source.cpp(53,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Александр\Desktop\limDePrgmStr\main\main\Source.cpp(74,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Александр\Desktop\limDePrgmStr\main\main\Source.cpp(109,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Александр\Desktop\limDePrgmStr\main\main\Source.cpp(112,31): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Александр\Desktop\limDePrgmStr\main\main\Source.cpp(130,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Александр\Desktop\limDePrgmStr\main\main\Source.cpp(133,31): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Александр\Desktop\limDePrgmStr\main\main\Source.cpp(176,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Александр\Desktop\limDePrgmStr\main\main\Source.cpp(196,27): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+  Generating Code...
+  main.vcxproj -> C:\Users\Александр\Desktop\limDePrgmStr\main\Debug\main.exe

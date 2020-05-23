@@ -1,0 +1,4 @@
+0 Chisinau 91 10 36 21 45
+1 Balti 72 8 34 20 44
+2 Falesti 60 8 30 22 45
+3 Orhei 66 7 32 20 44
